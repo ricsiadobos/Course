@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Course2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Course2.Controllers
 {
@@ -17,8 +18,11 @@ namespace Course2.Controllers
 
 
         // GET: EmloyeeController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var users = await _context.Users.ToListAsync();
+
+
             return View();
 
             

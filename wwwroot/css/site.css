@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.videoIcon {
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+
+#footer{
+    align-content: center;
+}

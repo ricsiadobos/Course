@@ -1,6 +1,7 @@
 ﻿using Course2.Data;
 using Course2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Course2.Controllers
@@ -15,19 +16,22 @@ namespace Course2.Controllers
             _context = context;
         }
 
-        //private readonly ILogger<HomeController> _logger;
+      
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var users = await _context.Users.ToListAsync();
+            var videos = await _context.Videos.ToListAsync();
+            var positions = await _context.Positions.ToListAsync();
+            var videosList = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
 
-          
+            ViewBag.videos = videos;
+
+
 
             return View();
+
+
         }
 
         public IActionResult Privacy()

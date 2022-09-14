@@ -5,5 +5,7 @@
         public string EmloyeeName { get; set; }
         public string EmloyeeEmail { get; set; }
         public int? PositionId { get; set; }
+      //  public virtual List<Video> Videos { get; set; }
+
     }
 }
