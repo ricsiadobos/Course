@@ -4,7 +4,6 @@
     {
         public string EmloyeeName { get; set; }
         public string EmloyeeEmail { get; set; }
-
-        public Position EmloyeePosition { get; set; }
+        public int? PositionId { get; set; }
     }
 }

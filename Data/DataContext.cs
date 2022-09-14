@@ -10,8 +10,10 @@ namespace Course2.Data
         }
 
         public DbSet<Employee>? Users { get; set; }
-        public DbSet<VideoCourse>? VideoCourses { get; set; }
-        public DbSet<PositionRequiredment>? PositionRequiredments { get; set; }
+
+        public DbSet<Video>? Videos { get; set; }
+
+        public DbSet<Position>? Positions { get; set; }
 
     }
 }

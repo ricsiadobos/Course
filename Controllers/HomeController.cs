@@ -1,4 +1,5 @@
-﻿using Course2.Models;
+﻿using Course2.Data;
+using Course2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,15 +7,26 @@ namespace Course2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly DataContext _context;
+
+        public HomeController(DataContext context)
         {
-            _logger = logger;
+            _context = context;
         }
+
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
+
+          
+
             return View();
         }
 

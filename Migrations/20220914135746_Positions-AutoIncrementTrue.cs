@@ -4,7 +4,7 @@
 
 namespace Course2.Migrations
 {
-    public partial class createBaseObj : Migration
+    public partial class PositionsAutoIncrementTrue : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

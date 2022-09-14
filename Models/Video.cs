@@ -1,8 +1,9 @@
 ﻿namespace Course2.Models
 {
-    public class VideoCourse : BaseObj
+    public class Video : BaseObj
     {
         public string VideoName { get; set; }
         public string videoURL { get; set; }
+        public int? PositionId { get; set; }
     }
 }

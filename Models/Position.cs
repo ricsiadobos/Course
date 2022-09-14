@@ -1,10 +1,7 @@
 ﻿namespace Course2.Models
 {
-    public enum Position
+    public class Position : BaseObj
     {
-        sales = 1,
-        developer = 2,
-        coacher = 3,
-        empty = 4,
+        public string PositionName { get; set; }
     }
 }
