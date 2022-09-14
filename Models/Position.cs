@@ -1,4 +1,4 @@
-﻿namespace Course2.Data
+﻿namespace Course2.Models
 {
     public enum Position
     {

@@ -3,12 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Course2.Data
 {
-      public class DataContext : DbContext
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions options) : base(options)
         {
         }
 
-        public DbSet<Employee> Users { get; set; }
+        public DbSet<Employee>? Users { get; set; }
+        public DbSet<VideoCourse>? VideoCourses { get; set; }
+        public DbSet<PositionRequiredment>? PositionRequiredments { get; set; }
+
     }
 }

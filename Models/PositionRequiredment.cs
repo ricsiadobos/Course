@@ -1,8 +1,7 @@
-﻿namespace Course2.Data
+﻿namespace Course2.Models
 {
-    public class PositionRequiredment
+    public class PositionRequiredment : BaseObj
     {
-        public int Id { get; set; }
         public int positionId { get; set; }
         public int videoId { get; set; }
     }
