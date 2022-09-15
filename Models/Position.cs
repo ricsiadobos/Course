@@ -1,4 +1,6 @@
-﻿namespace Course2.Models
+﻿using MessagePack;
+
+namespace Course2.Models
 {
     public class Position : BaseObj
     {

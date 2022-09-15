@@ -5,27 +5,28 @@
 
 <div class="text-center">
     <h1 class="display-4">Oktató videók</h1>
-    <p>Professzionális szakmai videók</p>
+    <p>Professzionális szakmai tartalmak</p>
 </div>
+
+ <br/>
 
 <div class="container">
     
     <form action="post" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Jelentkezz be!</h2>
-        <label for="username" class="sr-only">Teljes név</label>
+        <h2 class="form-signin-heading">Bejelentkezés</h2>
+        <label for="username" class="sr-only"></label>
         <input id="username" name="username" class="form-control" placeholder="Név" autofocus="">
-        <label for="email" class="sr-only">E-mail</label>
+        <label for="email" class="sr-only"></label>
         <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Belépés</button>
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Entry">Belépés</button>
     </form>
 </div>
 
+<br/>
 <hr/>
+<hr/>
+<br />
 
 <div class="VideoList">
     <table class="table">
@@ -33,8 +34,11 @@
             <th>
                 Video
             </th>
+            <th>
+               
+            </th>
             <th style="min-width: 110px">
-                Play
+                Lejátszás
             </th>
             
         </tr>
@@ -45,22 +49,19 @@
         @foreach (var video in ViewBag.videos)
         {
 
-
-            <tr>
+            <tr class="videolist">
                 <td>
                     @video.VideoName
                 </td>
 
                 <td>
-                   <a href="@video.videoURL" target="_blank">Megtekintés</a> 
+                    @*<a href="@video.videoURL" target="_blank">Megtekintés</a>*@ 
                 </td>
 
 
                 <td>
                     <div class="videoIcon">
-           
-                       <a href="@video.videoURL"><img src="~/../Pictures/play.png" alt="Play" target="_blank"></a>
-                        
+                        <a href="@video.videoURL"><img src="~/lib/play.png" width="25px" height="25px" alt="Play" target="_blank"></a>                              
                     </div>
          
                 </td>

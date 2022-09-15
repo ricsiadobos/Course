@@ -26,3 +26,7 @@ body {
 #footer{
     align-content: center;
 }
+
+.videolist {
+    height: 50px;
+}

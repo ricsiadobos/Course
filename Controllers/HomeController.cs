@@ -20,13 +20,17 @@ namespace Course2.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var logInData = new Employee();
+            var logInUser = "";
+
+            
+            
             var users = await _context.Users.ToListAsync();
             var videos = await _context.Videos.ToListAsync();
             var positions = await _context.Positions.ToListAsync();
-            var videosList = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
+            var videosToUser = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
 
-            ViewBag.videos = videos;
-
+            ViewBag.videos = videosToUser;
 
 
             return View();
@@ -34,12 +38,51 @@ namespace Course2.Controllers
 
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Entry(string employeeName, string employeeEmail)
+        {
+
+            if (!string.IsNullOrEmpty(employeeName) && !string.IsNullOrEmpty(employeeEmail)) 
+            {
+                return Redirect("Sikertelen bejelentkezés");
+            }
+
+
+            var logInData = new Employee();
+            var logInUser = "";
+
+
+            var users = await _context.Users.ToListAsync();
+            var videos = await _context.Videos.ToListAsync();
+            var positions = await _context.Positions.ToListAsync();
+            var videosToUser = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
+
+            ViewBag.videos = videosToUser;
+
+
+            return Redirect("Sikertelen bejelentkezés");
+
+
+        }
+
+        private IActionResult Redirect()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IActionResult CreateEmp()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
+        public IActionResult CreateVideo()
+        {
+            return View();
+        }
+
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
