@@ -1,4 +1,6 @@
-﻿
+﻿@model Course2.Models.Employee
+
+
 @{
     ViewData["Title"] = "Szakmai videó";
 }
@@ -10,17 +12,33 @@
 
  <br/>
 
-<div class="container">
-    
-    <form action="post" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Bejelentkezés</h2>
-        <label for="username" class="sr-only"></label>
-        <input id="username" name="username" class="form-control" placeholder="Név" autofocus="">
-        <label for="email" class="sr-only"></label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
-        <br/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Entry">Belépés</button>
-    </form>
+@if (ViewBag.SuccessLogInEmp != null)
+{
+    <div class="LogInIcon">
+    <i class="fa fa-male" style="color: forestgreen; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
+    </div>
+}
+
+ <div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmloyeeName" class="control-label"></label>
+                <input asp-for="EmloyeeName" class="form-control" />
+                <span asp-validation-for="EmloyeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmloyeeEmail" class="control-label"></label>
+                <input asp-for="EmloyeeEmail" class="form-control" />
+                <span asp-validation-for="EmloyeeEmail" class="text-danger"></span>
+            </div>
+            </br>
+            <div class="form-group">
+                <input type="submit" value="Belépés" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>
 
 <br/>
@@ -28,47 +46,44 @@
 <hr/>
 <br />
 
-<div class="VideoList">
-    <table class="table">
-        <tr>
-            <th>
-                Video
-            </th>
-            <th>
-               
-            </th>
-            <th style="min-width: 110px">
-                Lejátszás
-            </th>
+@if(ViewBag.videos != null)
+ { 
+    <div class="VideoList">
+        <table class="table">
+            <tr>
+                <th>
+                    Video
+                </th>
+                <th>
+  
+                </th>
+                <th style="min-width: 110px">
+                    Lejátszás
+                </th>
             
-        </tr>
-
- 
-        
-
-        @foreach (var video in ViewBag.videos)
-        {
-
-            <tr class="videolist">
-                <td>
-                    @video.VideoName
-                </td>
-
-                <td>
-                    @*<a href="@video.videoURL" target="_blank">Megtekintés</a>*@ 
-                </td>
-
-
-                <td>
-                    <div class="videoIcon">
-                        <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" width="25px" height="25px" alt="Play"></a>
-                    </div>
-         
-                </td>
-
             </tr>
-        }
+
+           
+                @foreach (var video in ViewBag.videos)
+                {
+                    <tr class="videolist">
+                        <td>
+                            @video.VideoName
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="videoIcon">
+                                <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" width="25px" height="25px" alt="Play"></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+        </table>
+    </div>
+}
 
 
-    </table>
-</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

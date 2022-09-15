@@ -10,64 +10,62 @@ namespace Course2.Controllers
     {
 
         private readonly DataContext _context;
+        Employee logInUser;
 
         public HomeController(DataContext context)
         {
             _context = context;
         }
 
-      
-
         public async Task<IActionResult> Index()
         {
-            var logInData = new Employee();
-            var logInUser = "";
-
-            
-            
-            var users = await _context.Users.ToListAsync();
-            var videos = await _context.Videos.ToListAsync();
-            var positions = await _context.Positions.ToListAsync();
-            var videosToUser = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
-
-            ViewBag.videos = videosToUser;
-
-
             return View();
-
-
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string employeeName, string employeeEmail)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index([Bind("EmloyeeName,EmloyeeEmail")] Employee LogInEmployee)
         {
+            ViewBag.videos = false;
+           var LogInEmpRequest = LogInEmployee;
 
-            if (!string.IsNullOrEmpty(employeeName) && !string.IsNullOrEmpty(employeeEmail)) 
+            if (!string.IsNullOrEmpty(LogInEmpRequest.EmloyeeName) && !string.IsNullOrEmpty(LogInEmpRequest.EmloyeeEmail)) 
             {
-                return Redirect("Sikertelen bejelentkezés");
+                var existingEmployee = await _context.Users.Select(x => x).FirstOrDefaultAsync(x => x.EmloyeeEmail == LogInEmpRequest.EmloyeeEmail & x.EmloyeeName == LogInEmpRequest.EmloyeeName);
+                var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
+                ViewBag.videos = professionalVideos;
+
+                if (existingEmployee is Employee)
+                {
+                    logInUser =  existingEmployee;
+                    ViewBag.SuccessLogInEmp = existingEmployee.EmloyeeName;
+                return View();
+                }
+
             }
 
-
-            var logInData = new Employee();
-            var logInUser = "";
-
-
-            var users = await _context.Users.ToListAsync();
-            var videos = await _context.Videos.ToListAsync();
-            var positions = await _context.Positions.ToListAsync();
-            var videosToUser = await _context.Videos.Select(x => x).Where(x => x.PositionId == 2).ToListAsync();
-
-            ViewBag.videos = videosToUser;
-
-
-            return Redirect("Sikertelen bejelentkezés");
-
-
+            return View("Sikertelen bejelentkezés");
         }
 
 
         public IActionResult CreateEmp()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmp([Bind("EmloyeeName,EmloyeeEmail,PositionId")] Employee employee)
+        {
+
+            var megerkezett = employee;
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(megerkezett);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(CreateEmp));
+            }
+
             return View();
         }
 

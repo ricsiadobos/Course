@@ -34,3 +34,19 @@ body {
 #center{
     align-content: center;
 }
+
+.center {
+    align-content: center;
+}
+
+.LogInIcon {
+    font-size: larger;
+    font-weight: bold;
+    padding-bottom 20px;
+}
+
+.fa-male{
+    color:forestgreen;
+    margin-bottom: 20px;
+}
+

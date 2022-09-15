@@ -1,25 +1,40 @@
-﻿
-<h1 class="center">Regisztráció</h1>
+﻿@model Course2.Models.Employee
 
+
+<div class="text-center">
+<h1>Regisztráció</h1>
 <p>Regisztrálj, hogy a szakmai videók megtekintésért</p>
-
-
-<div class="container">
-    
-    <form action="post" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Regisztáció</h2>
-        <label for="EmloyeeName" class="sr-only"></label>
-        <input id="EmloyeeName" name="username" class="form-control" placeholder="Név" autofocus="">
-        <label for="email" class="sr-only"></label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
-        <label for="PositionName" class="sr-only"></label>
-        <input type="text" id="email" name="email" class="form-control" placeholder="">
-        <br/>
-        @*<div class="mb-3">
-            <label class="form-label">Szakmai pozíciók</label>
-            <select class="form-select" asp-items= "@PositionList"></select>
-        </div>*@
-      
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Mentés</button>
-    </form>
 </div>
+
+
+ <div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateEmp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmloyeeName" class="control-label"></label>
+                <input asp-for="EmloyeeName" class="form-control"/>
+                <span asp-validation-for="EmloyeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmloyeeEmail" class="control-label"></label>
+                <input asp-for="EmloyeeEmail" class="form-control"/>
+                <span asp-validation-for="EmloyeeEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionId" class="control-label"></label>
+                <input asp-for="PositionId" class="form-control"/>
+                <span asp-validation-for="PositionId" class="text-danger"></span>
+            </div>
+            </br>
+            <div class="form-group">
+                <input type="submit" value="Regisztáció" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -9,8 +9,9 @@ namespace Course2.Models
         [DisplayName(displayName: "Név")]
         public string EmloyeeName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Nem megfelelő e-mail (pl.: email@email.hu)")]
+        [Required(ErrorMessage = "Üres mező")]
+        [DisplayName(displayName: "E-mail")]
         public string EmloyeeEmail { get; set; }
 
         public int? PositionId { get; set; }
