@@ -4,12 +4,12 @@ Course
 
 - Legyen dropdown lista a video és a dolgozó view-ban.
 
--Dolgozó bejelentkezése  (submit)
+- Dolgozó bejelentkezése  (submit)
 
--Dolgozó rögzítése 
+- Dolgozó rögzítése 
 
--Videó rögzítése
+- Videók rögzítése
 
--Statisztikai tábla létrehozása
+- Statisztikai tábla létrehozása
 
--Click event figyelés és rögítése a stat táblában
+- Click event figyelés és rögítése a stat táblában
