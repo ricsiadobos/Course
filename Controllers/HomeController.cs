@@ -39,7 +39,7 @@ namespace Course2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Entry(string employeeName, string employeeEmail)
+        public async Task<IActionResult> Index(string employeeName, string employeeEmail)
         {
 
             if (!string.IsNullOrEmpty(employeeName) && !string.IsNullOrEmpty(employeeEmail)) 
@@ -65,11 +65,6 @@ namespace Course2.Controllers
 
         }
 
-        private IActionResult Redirect()
-        {
-            throw new NotImplementedException();
-        }
-
 
         public IActionResult CreateEmp()
         {
@@ -77,8 +72,11 @@ namespace Course2.Controllers
         }
 
 
-        public IActionResult CreateVideo()
+        public async Task<IActionResult> CreateVideo()
         {
+            
+            var PositionList = await _context.Positions.Select(x => x.PositionName).ToListAsync();   
+            ViewBag.PositionList = PositionList;
             return View();
         }
 

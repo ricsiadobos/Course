@@ -30,3 +30,7 @@ body {
 .videolist {
     height: 50px;
 }
+
+#center{
+    align-content: center;
+}

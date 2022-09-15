@@ -1,23 +1,25 @@
-﻿{
+﻿@{
     ViewData["Title"] = "Create Video";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center">Videó rögzítő</h1>
 
-<p>Új videók rögítése</p>
+
 
 
 <div class="container">
 
     <form action="post" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Regisztáció</h2>
-        <label for="EmloyeeName" class="sr-only"></label>
-        <input id="EmloyeeName" name="username" class="form-control" placeholder="Név" autofocus="">
-        <label for="email" class="sr-only"></label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
-        <label for="" class="sr-only"></label>
-        <input type="text" id="email" name="email" class="form-control" placeholder="">
+        <h3 class="form-signin-heading">Új videók rögítése</h3>
+        <label for="VideoName" class="sr-only"></label>
+        <input id="VideoName" name="VideoName" class="form-control" placeholder="Videó címe" autofocus="">
+        <label for="VideoUrl" class="sr-only"></label>
+        <input type="VideoUrl" id="text" name="VideoUrl" class="form-control" placeholder="Videó URL">
+        <label for="PositionId" class="sr-only"></label>
+        <input type="PositionId" id="PositionId" name="PositionId" class="form-control" placeholder="Pozíció">
         <br />
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Belépés</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Mentés</button>
     </form>
 </div>
+
+

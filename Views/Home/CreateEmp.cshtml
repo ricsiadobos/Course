@@ -1,9 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Create Employee";
-}
-<h1>@ViewData["Title"]</h1>
+﻿
+<h1 class="center">Regisztráció</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<p>Regisztrálj, hogy a szakmai videók megtekintésért</p>
 
 
 <div class="container">
@@ -14,10 +12,14 @@
         <input id="EmloyeeName" name="username" class="form-control" placeholder="Név" autofocus="">
         <label for="email" class="sr-only"></label>
         <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
-        <label for="" class="sr-only"></label>
+        <label for="PositionName" class="sr-only"></label>
         <input type="text" id="email" name="email" class="form-control" placeholder="">
         <br/>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Belépés</button>
+        @*<div class="mb-3">
+            <label class="form-label">Szakmai pozíciók</label>
+            <select class="form-select" asp-items= "@PositionList"></select>
+        </div>*@
+      
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Mentés</button>
     </form>
 </div>
