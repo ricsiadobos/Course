@@ -1,10 +1,14 @@
-﻿@{
+﻿@model Course2.Models.Video
+
+
+@{
     ViewData["Title"] = "Create Video";
 }
 <h1 class="text-center">Videó rögzítő</h1>
 
 
 
+@*
 
 <div class="container">
 
@@ -12,8 +16,8 @@
         <h3 class="form-signin-heading">Új videók rögítése</h3>
         <label for="VideoName" class="sr-only"></label>
         <input id="VideoName" name="VideoName" class="form-control" placeholder="Videó címe" autofocus="">
-        <label for="VideoUrl" class="sr-only"></label>
-        <input type="VideoUrl" id="text" name="VideoUrl" class="form-control" placeholder="Videó URL">
+        <label for="videoURL" class="sr-only"></label>
+        <input type="videoURL" id="text" name="videoURL" class="form-control" placeholder="Videó URL">
         <label for="PositionId" class="sr-only"></label>
         <input type="PositionId" id="PositionId" name="PositionId" class="form-control" placeholder="Pozíció">
         <br />
@@ -22,4 +26,60 @@
     </form>
 </div>
 
+*@
 
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateVideo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VideoName" class="control-label"></label>
+                <input asp-for="VideoName" class="form-control" />
+                <span asp-validation-for="VideoName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="videoURL" class="control-label"></label>
+                <input asp-for="videoURL" class="form-control" />
+                <span asp-validation-for="videoURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionId" class="control-label"></label>
+                <input asp-for="PositionId" class="form-control" />
+                <span asp-validation-for="PositionId" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Feltöltés" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@*
+
+<tr>
+    <td> Populating With ViewBag Data </td>
+    <td>
+        @Html.DropDownList("PositionList", (IEnumerable
+        <Position>)ViewData["PositionList"])
+    </td>
+</tr>
+
+*@
+
+<tr>
+    <td> Populating With ViewData Data </td>
+    <td> @Html.DropDownList("MySkills", (IEnumerable
+        <SelectListItem>)ViewData["MySkills"]) </td>
+</tr>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+                 }

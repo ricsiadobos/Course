@@ -1,6 +1,7 @@
 ﻿using Course2.Data;
 using Course2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -47,8 +48,7 @@ namespace Course2.Controllers
             return View("Sikertelen bejelentkezés");
         }
 
-
-        public IActionResult CreateEmp()
+              public IActionResult CreateEmp()
         {
             return View();
         }
@@ -72,9 +72,40 @@ namespace Course2.Controllers
 
         public async Task<IActionResult> CreateVideo()
         {
-            
-            var PositionList = await _context.Positions.Select(x => x.PositionName).ToListAsync();   
-            ViewBag.PositionList = PositionList;
+
+            /// /// /// ///
+            List<SelectListItem> mySkills = new List<SelectListItem>() {
+        new SelectListItem {
+            Text = "ASP.NET MVC", Value = "1"
+        },
+        new SelectListItem {
+            Text = "ASP.NET WEB API", Value = "2"
+        }, };
+
+
+            /// /// /// ///
+            var PositionList = await _context.Positions.Select(x => x).ToListAsync();
+            ViewData["PositionList"] = PositionList;
+
+            ViewData["MySkills"] = mySkills;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVideo([Bind("VideoName,videoURL,PositionId")] Video uploadVideoRequest)
+        {
+            ViewBag.SuccessUploadVideo = false;
+            var uploadVideo = uploadVideoRequest;
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(uploadVideo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(CreateVideo));
+            }
+
             return View();
         }
 

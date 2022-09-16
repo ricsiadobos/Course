@@ -33,7 +33,7 @@
                 <input asp-for="EmloyeeEmail" class="form-control" />
                 <span asp-validation-for="EmloyeeEmail" class="text-danger"></span>
             </div>
-            </br>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Belépés" class="btn btn-primary" />
             </div>
@@ -74,7 +74,7 @@
                         </td>
                         <td>
                             <div class="videoIcon">
-                                <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" width="25px" height="25px" alt="Play"></a>
+                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" onclick="videoCheck()"></a>
                             </div>
                         </td>
                     </tr>

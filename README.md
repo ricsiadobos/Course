@@ -1,7 +1,7 @@
 # Course
-Course
+Videótár
 
-- Legyen dropdown lista a video és a dolgozó view-ban.
+- Legyen dropdown lista a video és a dolgozó view-ban.  // már megvan a minta, de a formális paraméterlista nem megfelelő
 
 - Videók rögzítése
 
