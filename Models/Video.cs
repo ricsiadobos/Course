@@ -16,6 +16,6 @@ namespace Course2.Models
         [Required(ErrorMessage = "Üres mező")]
         [DisplayName(displayName: "PositionId")]
         public int? PositionId { get; set; }
-      
+
     }
 }

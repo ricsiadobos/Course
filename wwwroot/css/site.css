@@ -1,20 +1,20 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .videoIcon {
@@ -23,7 +23,7 @@ body {
     width: 25px;
 }
 
-#footer{
+#footer {
     align-content: center;
 }
 
@@ -31,7 +31,7 @@ body {
     height: 50px;
 }
 
-#center{
+#center {
     align-content: center;
 }
 
@@ -45,8 +45,7 @@ body {
     padding-bottom: 20px;
 }
 
-.fa-male{
-    color:forestgreen;
+.fa-male {
+    color: forestgreen;
     margin-bottom: 20px;
 }
-

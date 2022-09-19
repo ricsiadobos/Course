@@ -1,5 +1,6 @@
 ﻿using Course2.Data;
 using Course2.Models;
+using Course2.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ namespace Course2.Controllers
 {
     public class HomeController : Controller
     {
+
+        //https://www.youtube.com/watch?v=B94TmwVhYsE&t=457s&ab_channel=CodeS
 
         private readonly DataContext _context;
         Employee logInUser;
@@ -27,77 +30,112 @@ namespace Course2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind("EmloyeeName,EmloyeeEmail")] Employee LogInEmployee)
         {
-            ViewBag.videos = false;
-           var LogInEmpRequest = LogInEmployee;
+            ViewBag.videos = null;
+            var LogInEmpRequest = LogInEmployee;
+            var employeeName = "";
 
-            if (!string.IsNullOrEmpty(LogInEmpRequest.EmloyeeName) && !string.IsNullOrEmpty(LogInEmpRequest.EmloyeeEmail)) 
+            try
             {
-                var existingEmployee = await _context.Users.Select(x => x).FirstOrDefaultAsync(x => x.EmloyeeEmail == LogInEmpRequest.EmloyeeEmail & x.EmloyeeName == LogInEmpRequest.EmloyeeName);
-                var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
-                ViewBag.videos = professionalVideos;
-
-                if (existingEmployee is Employee)
+                if (!string.IsNullOrEmpty(LogInEmpRequest.EmloyeeName) && !string.IsNullOrEmpty(LogInEmpRequest.EmloyeeEmail))
                 {
-                    logInUser =  existingEmployee;
-                    ViewBag.SuccessLogInEmp = existingEmployee.EmloyeeName;
-                return View();
+                    var existingEmployee = await _context.Users.Select(x => x).FirstOrDefaultAsync(x => x.EmloyeeEmail == LogInEmpRequest.EmloyeeEmail & x.EmloyeeName == LogInEmpRequest.EmloyeeName);
+                    if (existingEmployee is Employee)
+                    {
+                        employeeName = existingEmployee.EmloyeeName;
+                        var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
+                        ViewBag.videos = professionalVideos;
+                        logInUser = existingEmployee;
+                        ViewBag.SuccessLogInEmp = existingEmployee.EmloyeeName;
+                        ViewBag.FailedLogIn = false;
+                        return View();
+                    }
+
                 }
 
             }
-
-            return View("Sikertelen bejelentkezés");
+            catch (Exception)
+            {
+                ViewBag.FailedLogIn = true;
+                ViewBag.FailedMessage = "Sikertelen bejelentkezés";
+                return View();
+            }
+            ViewBag.FailedLogIn = true;
+            ViewBag.FailedMessage = "Sikertelen bejelentkezés";
+            return View();
         }
 
-              public IActionResult CreateEmp()
+        public IActionResult CreateEmp()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEmp([Bind("EmloyeeName,EmloyeeEmail,PositionId")] Employee employee)
+        public async Task<IActionResult> CreateEmp([Bind("EmloyeeName,EmloyeeEmail,PositionId")] Employee createEmployeeRequire)
         {
 
-            var megerkezett = employee;
+            var createEmployee = createEmployeeRequire;
 
             if (ModelState.IsValid)
             {
-                _context.Add(megerkezett);
+                _context.Add(createEmployee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CreateEmp));
+                return View();
             }
 
-            return View();
+            return RedirectToAction(nameof(CreateEmp));
         }
 
 
         public async Task<IActionResult> CreateVideo()
         {
 
-            /// /// /// ///
-            List<SelectListItem> mySkills = new List<SelectListItem>() {
-        new SelectListItem {
-            Text = "ASP.NET MVC", Value = "1"
-        },
-        new SelectListItem {
-            Text = "ASP.NET WEB API", Value = "2"
-        }, };
+            UpLoadVideo upLoadVideo = new UpLoadVideo();
+            upLoadVideo.Video = new Video();
 
+            upLoadVideo.Positions = _context.Positions
+                    .ToList()
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.PositionName,
+                        Selected = (x.Id == 2)
 
+                    });
+
+            int DefaultId = 2;
+            var dropdownPositionList = _context.Positions
+                    .ToList()
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.PositionName,
+                        Selected = (x.Id == DefaultId)
+
+                    });
+
+            ViewBag.pos = dropdownPositionList;
+            /*
             /// /// /// ///
             var PositionList = await _context.Positions.Select(x => x).ToListAsync();
-            ViewData["PositionList"] = PositionList;
-
+            var PositionNameList =  PositionList.Select(x => x.PositionName).ToList();
+            List<SelectListItem> sdf = new List<SelectListItem>((IEnumerable<SelectListItem>)PositionNameList);
+            ViewData["PositionList"] = sdf;
+            ViewBag.PositionList = sdf;
             ViewData["MySkills"] = mySkills;
+            */
+            var PositionNameList = _context.Positions.Select(x => x.PositionName).ToList();
+            ViewBag.PositionList = PositionNameList;
 
-            return View();
+            return View(upLoadVideo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateVideo([Bind("VideoName,videoURL,PositionId")] Video uploadVideoRequest)
+        public async Task<IActionResult> CreateVideo(UpLoadVideo upLoadVideoRequired)
         {
+
             ViewBag.SuccessUploadVideo = false;
-            var uploadVideo = uploadVideoRequest;
+            var uploadVideo = upLoadVideoRequired;
 
             if (ModelState.IsValid)
             {

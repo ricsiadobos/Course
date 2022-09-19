@@ -10,19 +10,23 @@
     <p>Professzionális szakmai tartalmak</p>
 </div>
 
- <br/>
+<br />
 
 @if (ViewBag.SuccessLogInEmp != null)
 {
     <div class="LogInIcon">
-    <i class="fa fa-male" style="color: forestgreen; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
+        <i class="fa fa-male" style="color: forestgreen; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
     </div>
 }
 
- <div class="row">
+<div class="row">
     <div class="col-md-4">
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (ViewBag.FailedLogIn == true)
+            {
+                <div class="alert alert-danger">@ViewBag.FailedMessage</div>
+            }
             <div class="form-group">
                 <label asp-for="EmloyeeName" class="control-label"></label>
                 <input asp-for="EmloyeeName" class="form-control" />
@@ -41,13 +45,12 @@
     </div>
 </div>
 
-<br/>
-<hr/>
-<hr/>
 <br />
+<hr />
+<hr />
 
-@if(ViewBag.videos != null)
- { 
+@if (ViewBag.videos != null)
+{
     <div class="VideoList">
         <table class="table">
             <tr>
@@ -55,35 +58,36 @@
                     Video
                 </th>
                 <th>
-  
+
                 </th>
                 <th style="min-width: 110px">
                     Lejátszás
                 </th>
-            
             </tr>
 
-           
-                @foreach (var video in ViewBag.videos)
-                {
-                    <tr class="videolist">
-                        <td>
-                            @video.VideoName
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <div class="videoIcon">
-                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" onclick="videoCheck()"></a>
-                            </div>
-                        </td>
-                    </tr>
-                }
+
+            @foreach (var video in ViewBag.videos)
+            {
+                <tr class="videolist">
+                    <td>
+                        @video.VideoName
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="videoIcon">
+                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck()"></a>
+                        </div>
+                    </td>
+                </tr>
+            }
         </table>
     </div>
 }
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
