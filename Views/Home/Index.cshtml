@@ -76,7 +76,7 @@
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck()"></a>
+                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck(@video.Id, @ViewBag.SuccessLogInEmpId)"></a>
                         </div>
                     </td>
                 </tr>

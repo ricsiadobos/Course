@@ -15,5 +15,7 @@ namespace Course2.Data
 
         public DbSet<Position>? Positions { get; set; }
 
+        public DbSet<LogWatchVideo> LogWatchVideos { get; set; }
+
     }
 }

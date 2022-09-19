@@ -4,14 +4,13 @@ using Course2.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
 
 namespace Course2.Controllers
 {
     public class HomeController : Controller
     {
-
-        //https://www.youtube.com/watch?v=B94TmwVhYsE&t=457s&ab_channel=CodeS
 
         private readonly DataContext _context;
         Employee logInUser;
@@ -46,6 +45,7 @@ namespace Course2.Controllers
                         ViewBag.videos = professionalVideos;
                         logInUser = existingEmployee;
                         ViewBag.SuccessLogInEmp = existingEmployee.EmloyeeName;
+                        ViewBag.SuccessLogInEmpId = existingEmployee.Id;
                         ViewBag.FailedLogIn = false;
                         return View();
                     }
@@ -62,6 +62,22 @@ namespace Course2.Controllers
             ViewBag.FailedLogIn = true;
             ViewBag.FailedMessage = "Sikertelen bejelentkezés";
             return View();
+
+
+            void videoCheck(Video video, Employee employee){
+                var LogData = video.Id;
+                var LogData2 = employee.Id;
+
+
+            }
+        }
+
+        public async Task<IActionResult> VideoViewLog(Video video, Employee employee)
+        {
+            var LogData = video.Id;
+            var LogData2 = employee.Id;
+
+            return View(logInUser);
         }
 
         public async Task<IActionResult> CreateEmp()

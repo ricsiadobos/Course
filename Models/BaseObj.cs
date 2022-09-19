@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace Course2.Models
 {
     public abstract class BaseObj

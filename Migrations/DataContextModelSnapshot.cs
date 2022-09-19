@@ -17,7 +17,7 @@ namespace Course2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -46,6 +46,28 @@ namespace Course2.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Course2.Models.LogWatchVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("dateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogWatchVideos");
+                });
+
             modelBuilder.Entity("Course2.Models.Position", b =>
                 {
                     b.Property<int>("Id")
@@ -72,6 +94,7 @@ namespace Course2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("PositionId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("VideoName")
