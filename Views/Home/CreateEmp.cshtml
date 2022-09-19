@@ -1,7 +1,10 @@
 ﻿@model Course2.Models.DTOs.UpLoadEmployee
 
+@{
+    ViewData["Title"] = "Regisztráció";
+}
 
-<div class="text-center">
+<div class="text-center" style="background: linear-gradient(to top, #009999 0%, #00ffff 100%)">
     <h1 class="display-4">Regisztráció</h1>
     <p>Regisztrálj, hogy a szakmai videók megtekintésért</p>
 </div>
@@ -13,17 +16,17 @@
         <form asp-action="CreateEmp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Employee.EmloyeeName" class="control-label"></label>
-                <input asp-for="Employee.EmloyeeName" class="form-control" />
-                <span asp-validation-for="Employee.EmloyeeName" class="text-danger"></span>
+                <label asp-for="Employee.EmployeeName" class="control-label"></label>
+                <input asp-for="Employee.EmployeeName" class="form-control" style= "opacity: 0.8" />
+                <span asp-validation-for="Employee.EmployeeName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Employee.EmloyeeEmail" class="control-label"></label>
-                <input asp-for="Employee.EmloyeeEmail" class="form-control" />
-                <span asp-validation-for="Employee.EmloyeeEmail" class="text-danger"></span>
+                <label asp-for="Employee.EmployeeEmail" class="control-label"></label>
+                <input asp-for="Employee.EmployeeEmail" class="form-control" style= "opacity: 0.8" />
+                <span asp-validation-for="Employee.EmployeeEmail" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style= "opacity: 0.8">
                 @Html.LabelFor(m => m.Positions, htmlAttributes: new { @class = "control-label col-md-2"})
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.PositionSelectedId,  new SelectList(@Model.Positions, "Id", "PositionName"), "Válassz...", new { @class = "form-control"})
@@ -43,7 +46,7 @@
 
                 </br>
                 <div class="form-group">
-                    <input type="submit" value="Regisztáció" class="btn btn-primary" />
+                    <input type="submit" value="Regisztáció" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)"/>
                 </div>
         </form>
     </div>

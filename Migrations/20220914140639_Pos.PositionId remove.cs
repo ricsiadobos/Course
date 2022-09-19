@@ -8,19 +8,19 @@ namespace Course2.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "PositionId",
-                table: "Positions");
+            //migrationBuilder.DropColumn(
+            //    name: "PositionId",
+            //    table: "Positions");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "PositionId",
-                table: "Positions",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            //migrationBuilder.AddColumn<int>(
+            //    name: "PositionId",
+            //    table: "Positions",
+            //    type: "int",
+            //    nullable: false,
+            //    defaultValue: 0);
         }
     }
 }

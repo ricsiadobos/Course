@@ -9,6 +9,6 @@ namespace Course2.Models
         [Required]
         public int VideoId { get; set; }
         [Required]
-        public DateTime dateTime { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

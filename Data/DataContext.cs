@@ -9,7 +9,7 @@ namespace Course2.Data
         {
         }
 
-        public DbSet<Employee>? Users { get; set; }
+        public DbSet<Employee>? Employees { get; set; }
 
         public DbSet<Video>? Videos { get; set; }
 

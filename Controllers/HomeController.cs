@@ -27,7 +27,7 @@ namespace Course2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index([Bind("EmloyeeName,EmloyeeEmail")] Employee LogInEmployee)
+        public async Task<IActionResult> Index([Bind("EmployeeName,EmployeeEmail")] Employee LogInEmployee)
         {
             ViewBag.videos = null;
             var LogInEmpRequest = LogInEmployee;
@@ -35,16 +35,16 @@ namespace Course2.Controllers
 
             try
             {
-                if (!string.IsNullOrEmpty(LogInEmpRequest.EmloyeeName) && !string.IsNullOrEmpty(LogInEmpRequest.EmloyeeEmail))
+                if (!string.IsNullOrEmpty(LogInEmpRequest.EmployeeName) && !string.IsNullOrEmpty(LogInEmpRequest.EmployeeEmail))
                 {
-                    var existingEmployee = await _context.Users.Select(x => x).FirstOrDefaultAsync(x => x.EmloyeeEmail == LogInEmpRequest.EmloyeeEmail & x.EmloyeeName == LogInEmpRequest.EmloyeeName);
+                    var existingEmployee = await _context.Employees.Select(x => x).FirstOrDefaultAsync(x => x.EmployeeEmail == LogInEmpRequest.EmployeeEmail & x.EmployeeName == LogInEmpRequest.EmployeeName);
                     if (existingEmployee is Employee)
                     {
-                        employeeName = existingEmployee.EmloyeeName;
+                        employeeName = existingEmployee.EmployeeName;
                         var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
                         ViewBag.videos = professionalVideos;
                         logInUser = existingEmployee;
-                        ViewBag.SuccessLogInEmp = existingEmployee.EmloyeeName;
+                        ViewBag.SuccessLogInEmp = existingEmployee.EmployeeName;
                         ViewBag.SuccessLogInEmpId = existingEmployee.Id;
                         ViewBag.FailedLogIn = false;
                         return View();
@@ -96,8 +96,8 @@ namespace Course2.Controllers
 
             Employee upLoadCreateEmployee = new Employee();
             {
-                upLoadCreateEmployee.EmloyeeName = upLoadEmployeeRequire.Employee.EmloyeeName;
-                upLoadCreateEmployee.EmloyeeEmail = upLoadEmployeeRequire.Employee.EmloyeeEmail;
+                upLoadCreateEmployee.EmployeeName = upLoadEmployeeRequire.Employee.EmployeeName;
+                upLoadCreateEmployee.EmployeeEmail = upLoadEmployeeRequire.Employee.EmployeeEmail;
                 upLoadCreateEmployee.PositionId = upLoadEmployeeRequire.PositionSelectedId;
             }
 

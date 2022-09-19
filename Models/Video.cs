@@ -11,7 +11,7 @@ namespace Course2.Models
 
         [Required(ErrorMessage = "Üres mező")]
         [DisplayName(displayName: "Videó URL címe")]
-        public string videoURL { get; set; }
+        public string VideoURL { get; set; }
 
         [Required(ErrorMessage = "Üres mező")]
         [DisplayName(displayName: "Pozíció")]

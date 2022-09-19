@@ -5,7 +5,7 @@
     ViewData["Title"] = "Szakmai videó";
 }
 
-<div class="text-center">
+<div class="text-center" style="background: linear-gradient(to top, #009999 0%, #00ffff 100%) ">
     <h1 class="display-4">Oktató videók</h1>
     <p>Professzionális szakmai tartalmak</p>
 </div>
@@ -14,8 +14,8 @@
 
 @if (ViewBag.SuccessLogInEmp != null)
 {
-    <div class="LogInIcon">
-        <i class="fa fa-male" style="color: forestgreen; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
+    <div class="LogInIcon" style= "padding-bottom: 0">
+        <i class="fa fa-male" style="color: #009999; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
     </div>
 }
 
@@ -28,18 +28,18 @@
                 <div class="alert alert-danger">@ViewBag.FailedMessage</div>
             }
             <div class="form-group">
-                <label asp-for="EmloyeeName" class="control-label"></label>
-                <input asp-for="EmloyeeName" class="form-control" />
-                <span asp-validation-for="EmloyeeName" class="text-danger"></span>
+                <label asp-for="EmployeeName" class="control-label"></label>
+                <input asp-for="EmployeeName" class="form-control" style= "opacity: 0.8"/>
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmloyeeEmail" class="control-label"></label>
-                <input asp-for="EmloyeeEmail" class="form-control" />
-                <span asp-validation-for="EmloyeeEmail" class="text-danger"></span>
+                <label asp-for="EmployeeEmail" class="control-label"></label>
+                <input asp-for="EmployeeEmail" class="form-control" style= "opacity: 0.8" />
+                <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
             </div>
             <br>
             <div class="form-group">
-                <input type="submit" value="Belépés" class="btn btn-primary" />
+                <input type="submit" value="Belépés" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)"/>
             </div>
         </form>
     </div>
@@ -76,7 +76,7 @@
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a href="@video.videoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck(@video.Id, @ViewBag.SuccessLogInEmpId)"></a>
+                            <a href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck(@video.Id, @ViewBag.SuccessLogInEmpId)"></a>
                         </div>
                     </td>
                 </tr>
