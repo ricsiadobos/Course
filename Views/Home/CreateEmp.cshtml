@@ -1,40 +1,57 @@
-﻿@model Course2.Models.Employee
+﻿@model Course2.Models.DTOs.UpLoadEmployee
 
 
 <div class="text-center">
-<h1>Regisztráció</h1>
-<p>Regisztrálj, hogy a szakmai videók megtekintésért</p>
+    <h1 class="display-4">Regisztráció</h1>
+    <p>Regisztrálj, hogy a szakmai videók megtekintésért</p>
 </div>
 
+</br>
 
- <div class="row">
+<div class="row">
     <div class="col-md-4">
         <form asp-action="CreateEmp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="EmloyeeName" class="control-label"></label>
-                <input asp-for="EmloyeeName" class="form-control"/>
-                <span asp-validation-for="EmloyeeName" class="text-danger"></span>
+                <label asp-for="Employee.EmloyeeName" class="control-label"></label>
+                <input asp-for="Employee.EmloyeeName" class="form-control" />
+                <span asp-validation-for="Employee.EmloyeeName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmloyeeEmail" class="control-label"></label>
-                <input asp-for="EmloyeeEmail" class="form-control"/>
-                <span asp-validation-for="EmloyeeEmail" class="text-danger"></span>
+                <label asp-for="Employee.EmloyeeEmail" class="control-label"></label>
+                <input asp-for="Employee.EmloyeeEmail" class="form-control" />
+                <span asp-validation-for="Employee.EmloyeeEmail" class="text-danger"></span>
             </div>
+
             <div class="form-group">
+                @Html.LabelFor(m => m.Positions, htmlAttributes: new { @class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.PositionSelectedId,  new SelectList(@Model.Positions, "Id", "PositionName"), "Válassz...", new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Positions, "Válassz ki pozíciót",  new { @class = "text-danger"})
+
+                </div>
+
+
+                @*
+                <div class="form-group">
                 <label asp-for="PositionId" class="control-label"></label>
                 <input asp-for="PositionId" class="form-control"/>
                 <span asp-validation-for="PositionId" class="text-danger"></span>
-            </div>
-            </br>
-            <div class="form-group">
-                <input type="submit" value="Regisztáció" class="btn btn-primary" />
-            </div>
+                </div>
+
+                *@
+
+                </br>
+                <div class="form-group">
+                    <input type="submit" value="Regisztáció" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

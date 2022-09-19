@@ -7,10 +7,12 @@ namespace Course2.Models.DTOs
     public class UpLoadVideo 
     {
 
+        public int PositionSelectedId { get; set; }
+
         public Video Video { get; set; }
 
         [DisplayName(displayName: "Pozíció")]
-        public IEnumerable<SelectListItem> Positions { get; set; }
+        public IEnumerable<Position> Positions { get; set; }
 
     }
 }

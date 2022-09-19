@@ -804,3 +804,6 @@ C:\Users\gordo\GITProject\Course\obj\Debug\net6.0\ref\Course2.dll
 C:\Users\gordo\GITProject\Course\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\gordo\GITProject\Course\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\gordo\GITProject\Course\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\gordosr\source\repos\Course2\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\gordosr\source\repos\Course2\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\gordosr\source\repos\Course2\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml

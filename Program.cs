@@ -12,9 +12,7 @@ builder.Services.AddDbContext<DataContext>(
             "DefaultConnection")));
 
 
-
 var app = builder.Build();
-
 
 
 

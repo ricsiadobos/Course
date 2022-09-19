@@ -64,25 +64,36 @@ namespace Course2.Controllers
             return View();
         }
 
-        public IActionResult CreateEmp()
+        public async Task<IActionResult> CreateEmp()
         {
-            return View();
+            UpLoadEmployee upLoadEmployee = new UpLoadEmployee();
+            upLoadEmployee.Employee = new Employee();
+            upLoadEmployee.Positions = await _context.Positions.ToListAsync();
+
+            return View(upLoadEmployee);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEmp([Bind("EmloyeeName,EmloyeeEmail,PositionId")] Employee createEmployeeRequire)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateEmp(UpLoadEmployee upLoadEmployeeRequire)
         {
 
-            var createEmployee = createEmployeeRequire;
-
-            if (ModelState.IsValid)
+            Employee upLoadCreateEmployee = new Employee();
             {
-                _context.Add(createEmployee);
-                await _context.SaveChangesAsync();
-                return View();
+                upLoadCreateEmployee.EmloyeeName = upLoadEmployeeRequire.Employee.EmloyeeName;
+                upLoadCreateEmployee.EmloyeeEmail = upLoadEmployeeRequire.Employee.EmloyeeEmail;
+                upLoadCreateEmployee.PositionId = upLoadEmployeeRequire.PositionSelectedId;
             }
 
-            return RedirectToAction(nameof(CreateEmp));
+
+            if (upLoadCreateEmployee is Employee)
+            {
+                _context.Add(upLoadCreateEmployee);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(CreateEmp));
+            }
+
+            return RedirectToAction(nameof(upLoadEmployeeRequire));
         }
 
 
@@ -92,28 +103,8 @@ namespace Course2.Controllers
             UpLoadVideo upLoadVideo = new UpLoadVideo();
             upLoadVideo.Video = new Video();
 
-            upLoadVideo.Positions = _context.Positions
-                    .ToList()
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.Id.ToString(),
-                        Text = x.PositionName,
-                        Selected = (x.Id == 2)
+            upLoadVideo.Positions = _context.Positions.ToList();
 
-                    });
-
-            int DefaultId = 2;
-            var dropdownPositionList = _context.Positions
-                    .ToList()
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.Id.ToString(),
-                        Text = x.PositionName,
-                        Selected = (x.Id == DefaultId)
-
-                    });
-
-            ViewBag.pos = dropdownPositionList;
             /*
             /// /// /// ///
             var PositionList = await _context.Positions.Select(x => x).ToListAsync();
@@ -135,14 +126,17 @@ namespace Course2.Controllers
         {
 
             ViewBag.SuccessUploadVideo = false;
-            var uploadVideo = upLoadVideoRequired;
+            Video upLoadCreateVideo = new Video();
+            upLoadCreateVideo = upLoadVideoRequired.Video;
+            upLoadCreateVideo.PositionId = upLoadVideoRequired.PositionSelectedId;
 
-            if (ModelState.IsValid)
-            {
-                _context.Add(uploadVideo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CreateVideo));
-            }
+
+            _context.Add(upLoadCreateVideo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(CreateVideo));
+
+
+            upLoadVideoRequired.Positions = _context.Positions.ToList();
 
             return View();
         }

@@ -14,7 +14,7 @@ namespace Course2.Models
         public string videoURL { get; set; }
 
         [Required(ErrorMessage = "Üres mező")]
-        [DisplayName(displayName: "PositionId")]
+        [DisplayName(displayName: "Pozíció")]
         public int? PositionId { get; set; }
 
     }
