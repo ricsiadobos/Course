@@ -7,10 +7,10 @@ namespace Course2.Models.DTOs
 
         public int PositionSelectedId { get; set; }
 
-        public Video Video { get; set; }
+        public Video? Video { get; set; }
 
-        [DisplayName(displayName: "Pozíció")]
-        public IEnumerable<Position> Positions { get; set; }
+        [DisplayName(displayName: "Munkakör")]
+        public IEnumerable<Position>? Positions { get; set; }
 
     }
 }

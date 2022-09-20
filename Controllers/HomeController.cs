@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
-
+using Course2.Repository;
 namespace Course2.Controllers
 {
     public class HomeController : Controller
@@ -20,7 +20,7 @@ namespace Course2.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -50,6 +50,11 @@ namespace Course2.Controllers
                         return View();
                     }
 
+                    void LogWatch(){
+                        var check = new LogVideoRepository();
+                        check.checkVideo();
+                    }
+
                 }
 
             }
@@ -64,7 +69,8 @@ namespace Course2.Controllers
             return View();
 
 
-            void videoCheck(Video video, Employee employee){
+            void videoCheck(Video video, Employee employee)
+            {
                 var LogData = video.Id;
                 var LogData2 = employee.Id;
 
@@ -72,10 +78,10 @@ namespace Course2.Controllers
             }
         }
 
-        public async Task<IActionResult> VideoViewLog(Video video, Employee employee)
+        public async Task<IActionResult> VideoViewLog(Video video)
         {
-            var LogData = video.Id;
-            var LogData2 = employee.Id;
+            var LogData = "valami";
+            
 
             return View(logInUser);
         }
@@ -108,6 +114,9 @@ namespace Course2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(CreateEmp));
             }
+
+
+
 
             return RedirectToAction(nameof(upLoadEmployeeRequire));
         }

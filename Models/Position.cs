@@ -7,7 +7,7 @@ namespace Course2.Models
     public class Position : BaseObj
     {
         [Required(ErrorMessage = "Üres mező")]
-        [DisplayName(displayName: "Pozíció")]
-        public string PositionName { get; set; }
+        [DisplayName(displayName: "Munkakör")]
+        public string? PositionName { get; set; }
     }
 }

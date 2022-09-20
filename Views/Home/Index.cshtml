@@ -1,8 +1,18 @@
 ﻿@model Course2.Models.Employee
 
 
+
 @{
     ViewData["Title"] = "Szakmai videó";
+
+
+
+   
+    async Task UpdateWatchVideo()
+    {
+        Model.checkVideo();
+    }
+
 }
 
 <div class="text-center" style="background: linear-gradient(to top, #009999 0%, #00ffff 100%) ">
@@ -14,7 +24,7 @@
 
 @if (ViewBag.SuccessLogInEmp != null)
 {
-    <div class="LogInIcon" style= "padding-bottom: 0">
+    <div class="LogInIcon" style="padding-bottom: 0">
         <i class="fa fa-male" style="color: #009999; margin-bottom: 20px"> Üdvözöllek  @ViewBag.SuccessLogInEmp</i>
     </div>
 }
@@ -29,17 +39,17 @@
             }
             <div class="form-group">
                 <label asp-for="EmployeeName" class="control-label"></label>
-                <input asp-for="EmployeeName" class="form-control" style= "opacity: 0.8"/>
+                <input asp-for="EmployeeName" class="form-control" style="opacity: 0.8" />
                 <span asp-validation-for="EmployeeName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EmployeeEmail" class="control-label"></label>
-                <input asp-for="EmployeeEmail" class="form-control" style= "opacity: 0.8" />
+                <input asp-for="EmployeeEmail" class="form-control" style="opacity: 0.8" />
                 <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
             </div>
             <br>
             <div class="form-group">
-                <input type="submit" value="Belépés" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)"/>
+                <input type="submit" value="Belépés" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)" />
             </div>
         </form>
     </div>
@@ -68,26 +78,67 @@
 
             @foreach (var video in ViewBag.videos)
             {
+
                 <tr class="videolist">
                     <td>
-                        @video.VideoName
+                       @video.VideoName"
                     </td>
                     <td>
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25" onclick="videoCheck(@video.Id, @ViewBag.SuccessLogInEmpId)"></a>
+                            <a id="ajaxID" href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
                         </div>
                     </td>
                 </tr>
+              
             }
         </table>
     </div>
 }
 
 
+@*https://www.c-sharpcorner.com/forums/how-to-call-on-click-event-in-mvc-5
+
+(ajax post  mvc-ben   olvasd el)
+
+  - onclick -> js 
+  - ajax hívás controller.action (video, epmloyee)
+
+  - redirect -> videoURL oldalra
+
+  $("#button1").click(function()
+    {
+        alert("Click Event Using Jquery");
+
+        // do other stuff as per your requirement
+    }
+    );
+
+    // Also can create click event like this
+
+    $("#button1").on("click" , function()
+    {
+        alert("Click Event Using Jquery");
+
+        // do other stuff as per your requirement
+    }
+    );
+
+    https://www.c-sharpcorner.com/forums/how-to-call-on-click-event-in-mvc-5
+    https://stackoverflow.com/questions/4120212/mvc-ajax-json-post-to-controller-action-method
+    https://stackoverflow.com/questions/7347786/html-anchor-tag-with-javascript-onclick-event
+    https://stackoverflow.com/questions/1549324/redirect-to-external-uri-from-asp-net-mvc-controller
+
+    [16:33]
+@Html.ActionLink("linkText", "Action", new {controller="ControllerName"}, new {target="_blank"})
+
+
+
+*@
+
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -9,6 +9,7 @@ namespace Course2.Models.DTOs
 
         public Employee Employee { get; set; }
 
+        [DisplayName(displayName: "Munkakör")]
         public IEnumerable<Position> Positions { get; set; }
 
 

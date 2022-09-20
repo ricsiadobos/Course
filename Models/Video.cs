@@ -7,14 +7,14 @@ namespace Course2.Models
     {
         [Required(ErrorMessage = "Üres mező")]
         [DisplayName(displayName: "Videó neve")]
-        public string VideoName { get; set; }
+        public string? VideoName { get; set; }
 
         [Required(ErrorMessage = "Üres mező")]
         [DisplayName(displayName: "Videó URL címe")]
-        public string VideoURL { get; set; }
+        public string? VideoURL { get; set; }
 
         [Required(ErrorMessage = "Üres mező")]
-        [DisplayName(displayName: "Pozíció")]
+        [DisplayName(displayName: "Munkakör")]
         public int? PositionId { get; set; }
 
     }
