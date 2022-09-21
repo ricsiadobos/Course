@@ -17,37 +17,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Employee.EmployeeName" class="control-label"></label>
-                <input asp-for="Employee.EmployeeName" class="form-control" style= "opacity: 0.8" />
+                <input asp-for="Employee.EmployeeName" class="form-control" style="opacity: 0.8" />
                 <span asp-validation-for="Employee.EmployeeName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee.EmployeeEmail" class="control-label"></label>
-                <input asp-for="Employee.EmployeeEmail" class="form-control" style= "opacity: 0.8" />
+                <input asp-for="Employee.EmployeeEmail" class="form-control" style="opacity: 0.8" />
                 <span asp-validation-for="Employee.EmployeeEmail" class="text-danger"></span>
             </div>
 
-            <div class="form-group" style= "opacity: 0.8">
+            <div class="form-group" style="opacity: 0.8">
                 @Html.LabelFor(m => m.Positions, htmlAttributes: new { @class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.PositionSelectedId,  new SelectList(@Model.Positions, "Id", "PositionName"), "Válassz...", new { @class = "form-control"})
-                    @Html.ValidationMessageFor(m => m.Positions, "Válassz ki pozíciót",  new { @class = "text-danger"})
 
-                </div>
+                @Html.DropDownListFor(m => m.PositionSelectedId,  new SelectList(@Model.Positions, "Id", "PositionName"), "Válassz...", new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Positions, "Válassz ki pozíciót",  new { @class = "text-danger"})
 
+            </div>
 
-                @*
-                <div class="form-group">
-                <label asp-for="PositionId" class="control-label"></label>
-                <input asp-for="PositionId" class="form-control"/>
-                <span asp-validation-for="PositionId" class="text-danger"></span>
-                </div>
-
-                *@
-
-                </br>
-                <div class="form-group">
-                    <input type="submit" value="Regisztáció" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)"/>
-                </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Regisztáció" class="btn" style="background: linear-gradient(to bottom, #009999 0%, #33cccc 100%)" />
+            </div>
         </form>
     </div>
 </div>

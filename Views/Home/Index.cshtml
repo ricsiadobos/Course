@@ -100,7 +100,7 @@
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a id="WatchVideoPost" onclick='return check()' href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
+                            <a id="WatchVideoPost" onclick='check(@video.VideoId, @video.EmployeeId)' href="@video.VideoURL" target="_blank" ><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
                         </div>
                     </td>
                 </tr>
@@ -109,6 +109,7 @@
         </table>
     </div>
 }
+
 
 
 @*https://www.c-sharpcorner.com/forums/how-to-call-on-click-event-in-mvc-5
@@ -154,41 +155,40 @@
     
     <script>
        
-        var videoData = "szöveg";
+                    //    var videoData = "szöveg";
 
 
-      $("#WatchVideoPost").on("click" , function()
-    {
-            console.log("WatchVideoPost click");
-        $.ajax({
-            type: "POST",
-            url:  "@Url.Action("CreateLog")",
-            dataType: "JSON",
-            data: {videoData: videoData},
-            success: function(result){
-                console.log(result);
-            },
-            error: function(req, status, error){
-                console.log(status)
-            }
-        });
+                    //  $("#WatchVideoPost").on("click" , function()
+                    //{
+                    //        console.log("WatchVideoPost click");
+                    //    $.ajax({
+                    //        type: "POST",
+                    //        url:  "@Url.Action("CreateLog")",
+                    //        dataType: "JSON",
+                    //        data: {videoData: videoData},
+                    //        success: function(result){
+                    //            console.log(result);
+                    //        },
+                    //        error: function(req, status, error){
+                    //            console.log(status)
+                    //        }
+                    //    });
 
-      });
+                    //  });
         
         
 
-    function check()
+    function check(videoId, EmployeeId)
     {
-            console.log("WatchVideoPost click2");
+            console.log("videoId", "EmployeeId",videoId, EmployeeId);
 
-            var requestData = {
-                VideoId: 2
-            };
+
+         
 
             $.ajax({
                 url: "@(Url.Action("CreateLog", "Home"))",
                 type: 'POST',
-                data: JSON.stringify(requestData),
+                data: JSON.stringify({videoId, EmployeeId}),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 error: function (xhr) {

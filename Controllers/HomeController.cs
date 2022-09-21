@@ -85,9 +85,9 @@ namespace Course2.Controllers
                 item.VideoURL = professionalVideos[i].VideoURL;
                 item.EmployeeId = employeeId;
                 var minDate = logwatchVideo.Where(x => x.VideoId == item.VideoId).Select(x => x.DateTime).OrderBy(x=>x).FirstOrDefault();
-                item.WatchDateFirst = minDate.ToString() == "01/01/0001 00:00:00" ? null : minDate;
+                item.WatchDateFirst = minDate.Year > 1 ? minDate : null;
                 var maxDate = logwatchVideo.Where(x => x.VideoId == item.VideoId).Select(x => x.DateTime).OrderByDescending(x => x).FirstOrDefault();
-                item.WatchDateLast = maxDate.ToString() == "01/01/0001 00:00:00" ? null : maxDate;
+                item.WatchDateLast = maxDate.Year > 1 ? maxDate : null;
                 
                  
 
@@ -99,18 +99,16 @@ namespace Course2.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLog([FromBody] VideosWithWatchDate model)
+        public async Task<IActionResult> CreateLog([FromBody] VideosWithWatchDate videosWithWatchDate )
         {
             LogWatchVideo logWatch = new LogWatchVideo();
-            logWatch.VideoId = model.VideoId;
+            logWatch.VideoId = videosWithWatchDate.VideoId;
             logWatch.DateTime = DateTime.Now;
-            logWatch.EmployeeId = employeeId.Value;
+            logWatch.EmployeeId = (int)videosWithWatchDate.EmployeeId;
 
             _context.Add(logWatch);
             await _context.SaveChangesAsync();
 
-            var LogData = model;
 
 
             return Json("url");
@@ -159,16 +157,6 @@ namespace Course2.Controllers
             upLoadVideo.Video = new Video();
 
             upLoadVideo.Positions = _context.Positions.ToList();
-
-            /*
-            /// /// /// ///
-            var PositionList = await _context.Positions.Select(x => x).ToListAsync();
-            var PositionNameList =  PositionList.Select(x => x.PositionName).ToList();
-            List<SelectListItem> sdf = new List<SelectListItem>((IEnumerable<SelectListItem>)PositionNameList);
-            ViewData["PositionList"] = sdf;
-            ViewBag.PositionList = sdf;
-            ViewData["MySkills"] = mySkills;
-            */
             var PositionNameList = _context.Positions.Select(x => x.PositionName).ToList();
             ViewBag.PositionList = PositionNameList;
 
