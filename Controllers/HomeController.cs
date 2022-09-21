@@ -15,6 +15,7 @@ namespace Course2.Controllers
 
         private readonly DataContext _context;
         Employee logInUser;
+        public int? employeeId = null;
 
         public HomeController(DataContext context)
         {
@@ -44,6 +45,7 @@ namespace Course2.Controllers
                     {
                         employeeName = existingEmployee.EmployeeName;
                         var employeeId = existingEmployee.Id;
+                        employeeId = existingEmployee.Id;
                         var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
                         var WatchVideo = await _context.LogWatchVideos.Select(x => x).Where(x => x.EmployeeId == existingEmployee.Id).ToListAsync();
 
@@ -82,13 +84,12 @@ namespace Course2.Controllers
                 item.VideoName = professionalVideos[i].VideoName;
                 item.VideoURL = professionalVideos[i].VideoURL;
                 item.EmployeeId = employeeId;
-                for (int x = 0; x < logwatchVideo.Count; x++)
-                {
-                    if (professionalVideos[i].Id == logwatchVideo[x].VideoId)
-                    {
-                    item.WatchDate = logwatchVideo[x].DateTime;
-                    }
-                }
+                var minDate = logwatchVideo.Where(x => x.VideoId == item.VideoId).Select(x => x.DateTime).OrderBy(x=>x).FirstOrDefault();
+                item.WatchDateFirst = minDate.ToString() == "01/01/0001 00:00:00" ? null : minDate;
+                var maxDate = logwatchVideo.Where(x => x.VideoId == item.VideoId).Select(x => x.DateTime).OrderByDescending(x => x).FirstOrDefault();
+                item.WatchDateLast = maxDate.ToString() == "01/01/0001 00:00:00" ? null : maxDate;
+                
+                 
 
                 list.Add(item);
             }
@@ -101,7 +102,15 @@ namespace Course2.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLog([FromBody] VideosWithWatchDate model)
         {
-            //var LogData = videoData;
+            LogWatchVideo logWatch = new LogWatchVideo();
+            logWatch.VideoId = model.VideoId;
+            logWatch.DateTime = DateTime.Now;
+            logWatch.EmployeeId = employeeId.Value;
+
+            _context.Add(logWatch);
+            await _context.SaveChangesAsync();
+
+            var LogData = model;
 
 
             return Json("url");
@@ -136,7 +145,6 @@ namespace Course2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(CreateEmp));
             }
-
 
 
 
@@ -194,4 +202,5 @@ namespace Course2.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+    
 }

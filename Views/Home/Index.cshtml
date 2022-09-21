@@ -68,7 +68,10 @@
                     Video
                 </th>
                 <th>
-                    Megtekintés
+                    Első megtekintés
+                </th>
+                <th>
+                    Utolsó megtekintés
                 </th>
                 <th style="min-width: 110px">
                     Lejátszás
@@ -83,9 +86,15 @@
                     <td>
                        @video.VideoName
                     </td>
-                    <td>
-                        @if (video.WatchDate != null){
-                            <i class="fa fa-check-square" style="color: #009999; margin-bottom: 20px"> @video.WatchDate.ToString("yyyy.MM.dd. HH:mm")</i>
+                    <td id="minDate" style="color: #009910">
+                        @if (video.WatchDateFirst != null){
+                            <i class="fa fa-check-square"> @video.WatchDateFirst.ToString("yyyy.MM.dd. HH:mm")</i>
+                        }
+                       
+                    </td>
+                    <td id="maxDate" style="color: #009910">
+                        @if (video.WatchDateLast != null){
+                            @video.WatchDateLast.ToString("yyyy.MM.dd. HH:mm");
                         }
                        
                     </td>
@@ -147,6 +156,7 @@
        
         var videoData = "szöveg";
 
+
       $("#WatchVideoPost").on("click" , function()
     {
             console.log("WatchVideoPost click");
@@ -163,16 +173,16 @@
             }
         });
 
-            
-        // do other stuff as per your requirement
-    });
+      });
+        
+        
 
     function check()
     {
             console.log("WatchVideoPost click2");
 
             var requestData = {
-                VideoId: 1
+                VideoId: 2
             };
 
             $.ajax({
@@ -190,7 +200,6 @@
                 async: true,
                 processData: false
             });
-
 
     }
 
