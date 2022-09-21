@@ -78,6 +78,7 @@ namespace Course2.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> VideoViewLog(Video video)
         {
             var LogData = "valami";

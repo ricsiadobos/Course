@@ -10,7 +10,7 @@
    
     async Task UpdateWatchVideo()
     {
-        Model.checkVideo();
+       
     }
 
 }
@@ -87,7 +87,7 @@
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a id="ajaxID" href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
+                            <a id="WatchVideoPost" href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
                         </div>
                     </td>
                 </tr>
@@ -138,7 +138,44 @@
 *@
 
 @section Scripts {
-    @{
+    
+    <script>
+       
+
+      $("#WatchVideoPost").on("click" , function()
+    {
+        $.ajax({
+            type: "POST",
+            url:  "@Url.Action("VideoViewLog")",
+            dataType: "json",
+            data: {@ViewBag.videos}
+            success: function(result){
+                console.log(result);
+            },
+            error: function(req, status, error){
+                console.log(status)
+            }
+        });
+
+        // do other stuff as per your requirement
+  
+
+    </script>
+
+    }
+
+
+   @* 
+      
+      $("#WatchVideoPost").on("click" , function()
+    {
+        alert("Click Event Using Jquery");
+
+        // do other stuff as per your requirement
+    }
+    );
+
+
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }
+    }*@
+    
