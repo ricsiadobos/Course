@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
 using Course2.Repository;
+
 namespace Course2.Controllers
 {
     public class HomeController : Controller
@@ -31,6 +32,7 @@ namespace Course2.Controllers
         {
             ViewBag.videos = null;
             var LogInEmpRequest = LogInEmployee;
+            logInUser = LogInEmployee;
             var employeeName = "";
 
             try
@@ -41,18 +43,17 @@ namespace Course2.Controllers
                     if (existingEmployee is Employee)
                     {
                         employeeName = existingEmployee.EmployeeName;
+                        var employeeId = existingEmployee.Id;
                         var professionalVideos = await _context.Videos.Select(x => x).Where(x => x.PositionId == existingEmployee.PositionId).ToListAsync();
-                        ViewBag.videos = professionalVideos;
+                        var WatchVideo = await _context.LogWatchVideos.Select(x => x).Where(x => x.EmployeeId == existingEmployee.Id).ToListAsync();
+
+                        var VideoList = createVideoWithDate(professionalVideos, WatchVideo, employeeId);
+                        ViewBag.videos = VideoList; 
                         logInUser = existingEmployee;
                         ViewBag.SuccessLogInEmp = existingEmployee.EmployeeName;
                         ViewBag.SuccessLogInEmpId = existingEmployee.Id;
                         ViewBag.FailedLogIn = false;
                         return View();
-                    }
-
-                    void LogWatch(){
-                        var check = new LogVideoRepository();
-                        check.checkVideo();
                     }
 
                 }
@@ -68,24 +69,44 @@ namespace Course2.Controllers
             ViewBag.FailedMessage = "Sikertelen bejelentkezés";
             return View();
 
-
-            void videoCheck(Video video, Employee employee)
-            {
-                var LogData = video.Id;
-                var LogData2 = employee.Id;
-
-
-            }
         }
+
+        private List<VideosWithWatchDate> createVideoWithDate(List<Video> professionalVideos, List<LogWatchVideo> logwatchVideo,int employeeId)
+        {
+            List<VideosWithWatchDate> list = new List<VideosWithWatchDate>();
+            VideosWithWatchDate item;
+            for (int i = 0; i < professionalVideos.Count; i++)
+            {
+                item = new VideosWithWatchDate();
+                item.VideoId = professionalVideos[i].Id;
+                item.VideoName = professionalVideos[i].VideoName;
+                item.VideoURL = professionalVideos[i].VideoURL;
+                item.EmployeeId = employeeId;
+                for (int x = 0; x < logwatchVideo.Count; x++)
+                {
+                    if (professionalVideos[i].Id == logwatchVideo[x].VideoId)
+                    {
+                    item.WatchDate = logwatchVideo[x].DateTime;
+                    }
+                }
+
+                list.Add(item);
+            }
+
+            return list;
+        }
+
 
         [HttpPost]
-        public async Task<IActionResult> VideoViewLog(Video video)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLog([FromBody] VideosWithWatchDate model)
         {
-            var LogData = "valami";
-            
+            //var LogData = videoData;
 
-            return View(logInUser);
+
+            return Json("url");
         }
+
 
         public async Task<IActionResult> CreateEmp()
         {

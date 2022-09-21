@@ -68,7 +68,7 @@
                     Video
                 </th>
                 <th>
-
+                    Megtekintés
                 </th>
                 <th style="min-width: 110px">
                     Lejátszás
@@ -81,13 +81,17 @@
 
                 <tr class="videolist">
                     <td>
-                       @video.VideoName"
+                       @video.VideoName
                     </td>
                     <td>
+                        @if (video.WatchDate != null){
+                            <i class="fa fa-check-square" style="color: #009999; margin-bottom: 20px"> @video.WatchDate.ToString("yyyy.MM.dd. HH:mm")</i>
+                        }
+                       
                     </td>
                     <td>
                         <div class="videoIcon">
-                            <a id="WatchVideoPost" href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
+                            <a id="WatchVideoPost" onclick='return check()' href="@video.VideoURL" target="_blank"><img src="~/lib/play.png" alt="Play" width="25" height="25"></a>
                         </div>
                     </td>
                 </tr>
@@ -141,14 +145,16 @@
     
     <script>
        
+        var videoData = "szöveg";
 
       $("#WatchVideoPost").on("click" , function()
     {
+            console.log("WatchVideoPost click");
         $.ajax({
             type: "POST",
-            url:  "@Url.Action("VideoViewLog")",
-            dataType: "json",
-            data: {@ViewBag.videos}
+            url:  "@Url.Action("CreateLog")",
+            dataType: "JSON",
+            data: {videoData: videoData},
             success: function(result){
                 console.log(result);
             },
@@ -157,8 +163,36 @@
             }
         });
 
+            
         // do other stuff as per your requirement
-  
+    });
+
+    function check()
+    {
+            console.log("WatchVideoPost click2");
+
+            var requestData = {
+                VideoId: 1
+            };
+
+            $.ajax({
+                url: "@(Url.Action("CreateLog", "Home"))",
+                type: 'POST',
+                data: JSON.stringify(requestData),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                error: function (xhr) {
+                    console.log("WatchVideoPost click err", xhr);
+                },
+                success: function (result) {
+                    console.log("WatchVideoPost click success", result);
+                },
+                async: true,
+                processData: false
+            });
+
+
+    }
 
     </script>
 
